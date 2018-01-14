@@ -97,3 +97,5 @@ cd
 cd sha*
 bash run.sh
 echo done.....
+
+reboot
