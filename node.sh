@@ -1,37 +1,24 @@
 #/bin/sh
-yum update -y
-yum install wget git -y
-yum install epel-release -y
-yum install libsodium -y
-yum install python-setuptools easy_install pip -y
-yum -y groupinstall “Development Tools”
-wget https://bootstrap.pypa.io/get-pip.py
-if [ ! -d "/usr/bin/pip" ]; then
-  python get-pip.py
-fi
-rm -rf get-pip.py
-#配置pypi源
-if [ ! -d "/root/.pip" ]; then
-  mkdir /root/.pip
-fi
-echo "[global]
-index-url=https://mirror-ord.pypi.io/simple
-[install]
-trusted-host=mirror-ord.pypi.io" > ~/.pip/pip.conf
-
-echo "[easy_install]
-index-url=https://mirror-ord.pypi.io/pypi/simple/" > ~/.pydistutils.cfg
-
+yum -y install python-setuptools && easy_install pip && pip install cymysql speedtest-cli && yum install git -y
+yum -y groupinstall "Development Tools" && wget https://raw.githubusercontent.com/Nightiswatch/ss-panel-and-ss-py-mu/master/libsodium-1.0.13.tar.gz&&tar xf libsodium-1.0.13.tar.gz && cd libsodium-1.0.13&&./configure && make -j2 && make install&&echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf&&ldconfig&& rm -rf /root/libsodium-1.0.13.tar.gz && cd /root
+yum install python-setuptools && easy_install pip
+yum install git
+yum -y install wget
+yum -y install epel-release
+yum -y install python-pip
 #下载后端
-pip install cymysql
 cd
 rm -rf shadowsocks
 git clone -b manyuser https://github.com/glzjin/shadowsocks.git
+yum -y install python-devel
+yum -y install libffi-devel
+yum -y install openssl-devel
 cd shadowsocks
-
-chmod +x *.sh
 pip  install -r requirements.txt
+pip install --upgrade pip
 cp apiconfig.py userapiconfig.py
+cp config.json user-config.json
+
 #加入自启动
 chmod +x /etc/rc.d/rc.local
 echo "bash /root/shadowsocks/run.sh" >> /etc/rc.d/rc.local
