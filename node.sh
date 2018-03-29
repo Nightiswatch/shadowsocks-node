@@ -9,7 +9,7 @@ yum -y install python-pip
 #下载后端
 cd
 rm -rf shadowsocks
-git clone -b manyuser https://github.com/glzjin/shadowsocks.git
+git clone -b manyuser https://github.com/Nightiswatch/shadowsocks.git
 yum -y install python-devel
 yum -y install libffi-devel
 yum -y install openssl-devel
